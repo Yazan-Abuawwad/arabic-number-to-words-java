@@ -1,0 +1,12 @@
+# Build output
+target/
+out/
+
+# IntelliJ IDEA (open the project by importing pom.xml)
+.idea/
+*.iml
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
