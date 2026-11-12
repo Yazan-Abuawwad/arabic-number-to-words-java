@@ -1,0 +1,64 @@
+# Arabic Number Words
+
+> Java library (Java 8+, no runtime dependencies) that converts numbers and money amounts into
+> grammatically correct Arabic words (تفقيط / tafqeet). Handles integers up to 36 digits
+> (|n| <= 10^36 - 1), decimals, negatives, masculine/feminine agreement, and the currencies of all
+> 22 Arab League countries plus USD, EUR and GBP. All methods are static and thread-safe.
+
+## Maven coordinates
+
+- groupId: io.github.yazan-abuawwad
+- artifactId: arabic-number-words
+- version: 1.0.0
+- Maven: <dependency><groupId>io.github.yazan-abuawwad</groupId><artifactId>arabic-number-words</artifactId><version>1.0.0</version></dependency>
+- Gradle: implementation 'io.github.yazan-abuawwad:arabic-number-words:1.0.0'
+- Package: io.github.yazanabuawwad.arabicwords
+- Javadoc: https://javadoc.io/doc/io.github.yazan-abuawwad/arabic-number-words
+- Source: https://github.com/Yazan-Abuawwad/Convert_Big_numbers_to_Arabic_words
+
+## Public API
+
+- ArabicNumberConverter (entry point, static methods):
+  - toWords(long | BigInteger | BigDecimal | String [, Gender]): plain numbers; default gender is MASCULINE
+  - toWords(long | BigInteger count, ArabicNoun noun): a count followed by a noun, with agreement
+  - toCurrencyWords(BigDecimal | String | double amount [, ArabicCurrency]): money; default currency is JOD
+  - toCurrencyWords(String amount, String isoCode): money in a built-in currency by ISO 4217 code
+  - MAX_VALUE: 10^36 - 1
+- ArabicCurrency: built-in constants JOD KWD BHD IQD LYD TND DZD SAR QAR OMR YER AED MAD EGP SDG LBP SYP
+  MRU SOS DJF KMF USD EUR GBP; forCode(String); predefined(); of(code, unit, subunit, subunitsPerUnit)
+- ArabicNoun.of(singular, dual, plural, accusative, Gender): a countable noun (plural for 3-10, accusative for 11-99)
+- Gender: MASCULINE, FEMININE
+
+## Key examples
+
+All outputs below are produced by the library.
+
+```java
+import io.github.yazanabuawwad.arabicwords.*;
+
+ArabicNumberConverter.toWords(1234);                    // ألف ومئتان وأربعة وثلاثون
+ArabicNumberConverter.toWords(1234, Gender.FEMININE);   // ألف ومئتان وأربع وثلاثون
+ArabicNumberConverter.toWords("1,250,000");             // مليون ومئتان وخمسون ألفًا
+ArabicNumberConverter.toWords(new BigDecimal("12.05")); // اثنا عشر فاصلة صفر خمسة
+ArabicNumberConverter.toWords(-15);                     // سالب خمسة عشر
+
+ArabicNumberConverter.toCurrencyWords("1250.750");                      // ألف ومئتان وخمسون دينارًا وسبعمائة وخمسون فلسًا
+ArabicNumberConverter.toCurrencyWords("100.25", ArabicCurrency.SAR);    // مائة ريال وخمس وعشرون هللةً
+ArabicNumberConverter.toCurrencyWords("3.05", ArabicCurrency.SYP);      // ثلاث ليرات وخمسة قروش
+ArabicNumberConverter.toCurrencyWords("5.008", "OMR");                  // خمسة ريالات وثماني بيسات
+
+ArabicNoun book = ArabicNoun.of("كتاب", "كتابان", "كتب", "كتابًا", Gender.MASCULINE);
+ArabicNumberConverter.toWords(2000, book);              // ألفا كتاب
+```
+
+## Behaviour notes
+
+- Gender for money and counted nouns comes from the noun (e.g. ليرة and هللة are feminine); only plain numbers take a Gender argument.
+- Money is rounded half-up to whole sub-units; 9.999 USD -> عشرة دولارات.
+- String input accepts Arabic-Indic digits (١٢٣), the Arabic decimal mark (٫) and thousands separators (, ٬ _ space).
+- Errors: out of range -> IllegalArgumentException; unparseable text -> NumberFormatException; unknown currency code -> IllegalArgumentException.
+- The fraction of a plain decimal is read as one number after "فاصلة" (3.14159 -> ثلاثة فاصلة أربعة عشر ألفًا ومائة وتسعة وخمسون).
+
+## Docs
+
+- README: https://github.com/Yazan-Abuawwad/Convert_Big_numbers_to_Arabic_words/blob/master/README.md

@@ -1,5 +1,9 @@
 # Arabic Number Words — تفقيط الأرقام
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.yazan-abuawwad/arabic-number-words?label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.yazan-abuawwad/arabic-number-words)
+[![Javadoc](https://javadoc.io/badge2/io.github.yazan-abuawwad/arabic-number-words/javadoc.svg)](https://javadoc.io/doc/io.github.yazan-abuawwad/arabic-number-words)
+[![Java 8+](https://img.shields.io/badge/Java-8%2B-blue)](#10-building-and-testing-this-project)
+
 A small, dependency-free Java library that turns numbers and money amounts into
 grammatically correct Arabic words (تفقيط). It handles very large numbers (up to 36 digits),
 both grammatical genders (masculine and feminine), decimals, and **the currency of every Arab country**
@@ -52,9 +56,47 @@ Library coordinates:
 |---------------------------|-----------------------|---------|
 | `io.github.yazan-abuawwad` | `arabic-number-words` | `1.0.0` |
 
-Pick **one** of the options below.
+The library is published on [Maven Central](https://central.sonatype.com/artifact/io.github.yazan-abuawwad/arabic-number-words),
+so most projects just add the dependency below. The badge at the top always shows the latest version.
 
-### Option A: install into your local Maven repository (simplest, works offline)
+### From Maven Central (recommended)
+
+**Maven:**
+
+```xml
+<dependency>
+    <groupId>io.github.yazan-abuawwad</groupId>
+    <artifactId>arabic-number-words</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+**Gradle (Groovy):**
+
+```groovy
+implementation 'io.github.yazan-abuawwad:arabic-number-words:1.0.0'
+```
+
+**Gradle (Kotlin DSL):**
+
+```kotlin
+implementation("io.github.yazan-abuawwad:arabic-number-words:1.0.0")
+```
+
+No extra repository is needed; Maven Central is the default in Maven and Gradle (`mavenCentral()`).
+
+### Javadoc
+
+The full API documentation is hosted on **[javadoc.io](https://javadoc.io/doc/io.github.yazan-abuawwad/arabic-number-words)**.
+javadoc.io builds it automatically from the `-javadoc.jar` published to Maven Central, so every
+release gets its own docs (pick a version from the drop-down on the site). Your IDE also shows the
+same docs on hover, because the javadoc and sources jars are published alongside the library.
+
+### Other ways to install
+
+Use one of these if you can't reach Maven Central, or need an unreleased version.
+
+### Option A: install into your local Maven repository (works offline)
 
 Clone this repo and install it once:
 
@@ -603,6 +645,7 @@ In IntelliJ IDEA open the folder (or `pom.xml`) and choose **Open as Project**; 
 ├── pom.xml                         Maven build: coordinates, Java 8 target, plugins
 ├── jitpack.yml                     Tells JitPack to build with JDK 17
 ├── README.md
+├── llms.txt                        Short summary of the library for AI tools (llms.txt convention)
 └── src
     ├── main/java/io/github/yazanabuawwad/arabicwords
     │   ├── ArabicNumberConverter.java   Entry point: all toWords / toCurrencyWords methods
